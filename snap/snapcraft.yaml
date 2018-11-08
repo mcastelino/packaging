@@ -1,5 +1,5 @@
 name: kata-containers
-version: 1.3.1
+version: 1.3.0
 summary: Build lightweight VMs that seamlessly plug into the containers ecosystem
 description: |
   Kata Containers is an open source project and community working to build a
@@ -15,7 +15,7 @@ parts:
   runtime:
     source: http://github.com/kata-containers/runtime
     source-type: git
-    source-tag: 1.3.1
+    source-tag: 1.3.0
     after: [go]
     plugin: go
     go-importpath: github.com/kata-containers/runtime
@@ -27,26 +27,16 @@ parts:
       cd ${GOPATH}/src/github.com/${SNAPCRAFT_PROJECT_NAME}/runtime
       QEMU_ARCH=$(arch)
       make \
-        QEMUPATH=/snap/${SNAPCRAFT_PROJECT_NAME}/current/usr/bin/qemu-system-${QEMU_ARCH} \
-        PROXYPATH=/snap/${SNAPCRAFT_PROJECT_NAME}/current/usr/libexec/${SNAPCRAFT_PROJECT_NAME}/kata-proxy \
-        SHIMPATH=/snap/${SNAPCRAFT_PROJECT_NAME}/current/usr/libexec/${SNAPCRAFT_PROJECT_NAME}/kata-shim \
-        KERNELPATH=/snap/${SNAPCRAFT_PROJECT_NAME}/current/usr/share/${SNAPCRAFT_PROJECT_NAME}/vmlinuz.container \
-        INITRDPATH=/snap/${SNAPCRAFT_PROJECT_NAME}/current/usr/share/${SNAPCRAFT_PROJECT_NAME}/kata-containers-initrd.img \
-        CONFIG_PATH=/snap/${SNAPCRAFT_PROJECT_NAME}/current/usr/share/defaults/${SNAPCRAFT_PROJECT_NAME}/configuration.toml
+        PREFIX=/snap/${SNAPCRAFT_PROJECT_NAME}/current/usr
       make install \
         PREFIX=/usr \
-        DESTDIR=${SNAPCRAFT_PART_INSTALL} \
-        QEMUPATH=/snap/${SNAPCRAFT_PROJECT_NAME}/current/usr/bin/qemu-system-${QEMU_ARCH} \
-        PROXYPATH=/snap/${SNAPCRAFT_PROJECT_NAME}/current/usr/libexec/${SNAPCRAFT_PROJECT_NAME}/kata-proxy \
-        SHIMPATH=/snap/${SNAPCRAFT_PROJECT_NAME}/current/usr/libexec/${SNAPCRAFT_PROJECT_NAME}/kata-shim \
-        KERNELPATH=/snap/${SNAPCRAFT_PROJECT_NAME}/current/usr/share/${SNAPCRAFT_PROJECT_NAME}/vmlinuz.container \
-        INITRDPATH=/snap/${SNAPCRAFT_PROJECT_NAME}/current/usr/share/${SNAPCRAFT_PROJECT_NAME}/kata-containers-initrd.img
+        DESTDIR=${SNAPCRAFT_PART_INSTALL}
       sed -i -e '/^image =/d' ${SNAPCRAFT_PART_INSTALL}/usr/share/defaults/${SNAPCRAFT_PROJECT_NAME}/configuration.toml
 
   proxy:
     source: http://github.com/kata-containers/proxy
     source-type: git
-    source-tag: 1.3.1
+    source-tag: 1.3.0
     after: [go]
     plugin: go
     go-importpath: github.com/kata-containers/proxy
@@ -62,7 +52,7 @@ parts:
   shim:
     source: http://github.com/kata-containers/shim
     source-type: git
-    source-tag: 1.3.1
+    source-tag: 1.3.0
     after: [go]
     plugin: go
     go-importpath: github.com/kata-containers/shim
@@ -111,7 +101,7 @@ parts:
   ksm-throttler:
     source: http://github.com/kata-containers/ksm-throttler
     source-type: git
-    source-tag: 1.3.1
+    source-tag: 1.3.0
     after: [go]
     plugin: go
     go-importpath: github.com/kata-containers/ksm-throttler
